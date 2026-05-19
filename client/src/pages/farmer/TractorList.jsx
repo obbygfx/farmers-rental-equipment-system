@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Search, Tractor as TractorIcon, Calendar } from 'lucide-react';
 
 const TractorList = ({ onBook }) => {
@@ -9,7 +9,7 @@ const TractorList = ({ onBook }) => {
   useEffect(() => {
     const fetchTractors = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/tractors');
+        const res = await api.get('/tractors');
         setTractors(res.data);
       } catch (err) {
         console.error('Error fetching tractors');

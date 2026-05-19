@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 import { Users, Tractor, Calendar, DollarSign, Trash2, Shield } from 'lucide-react';
 
@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/auth/users', {
+        const res = await api.get('/auth/users', {
           headers: { 'x-access-token': currentUser.accessToken }
         });
         setUsers(res.data);

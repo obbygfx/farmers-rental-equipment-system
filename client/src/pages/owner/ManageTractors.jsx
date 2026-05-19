@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 import { Plus, Edit, Trash2, Tractor as TractorIcon } from 'lucide-react';
 
@@ -11,7 +11,7 @@ const ManageTractors = () => {
 
   const fetchTractors = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/tractors/my', {
+      const res = await api.get('/tractors/my', {
         headers: { 'x-access-token': user.accessToken }
       });
       setTractors(res.data);
@@ -27,7 +27,7 @@ const ManageTractors = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/tractors', formData, {
+      await api.post('/tractors', formData, {
         headers: { 'x-access-token': user.accessToken }
       });
       setShowModal(false);
@@ -41,7 +41,7 @@ const ManageTractors = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this tractor?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/tractors/${id}`, {
+        await api.delete(`/tractors/${id}`, {
           headers: { 'x-access-token': user.accessToken }
         });
         fetchTractors();

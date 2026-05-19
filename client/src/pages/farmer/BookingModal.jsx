@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -13,7 +13,7 @@ const BookingModal = ({ tractor, onClose, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/bookings', {
+      await api.post('/bookings', {
         tractor_id: tractor.id,
         ...formData
       }, {

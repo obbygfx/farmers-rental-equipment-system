@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 import { Clock, CheckCircle, XCircle, MapPin } from 'lucide-react';
 
@@ -9,7 +9,7 @@ const OwnerBookings = () => {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/bookings/owner', {
+      const res = await api.get('/bookings/owner', {
         headers: { 'x-access-token': user.accessToken }
       });
       setBookings(res.data);
@@ -24,7 +24,7 @@ const OwnerBookings = () => {
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/bookings/${id}`, { status }, {
+      await api.put(`/bookings/${id}`, { status }, {
         headers: { 'x-access-token': user.accessToken }
       });
       fetchBookings();

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { Tractor } from 'lucide-react';
 
@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { phone, password });
+      const res = await api.post('/auth/login', { phone, password });
       login(res.data);
       const role = res.data.role;
       if (role === 'farmer') navigate('/farmer');
